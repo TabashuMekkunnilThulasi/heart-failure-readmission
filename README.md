@@ -1,40 +1,85 @@
-# 💡 GHW Heart Failure Readmission Prediction
+💓 GHW Heart Failure Readmission Prediction
+This project is part of the Healthcare Analytics domain, aimed at predicting hospital readmissions for heart failure patients using machine learning models.
 
-This project uses machine learning to predict 30/60-day readmission risk for heart failure patients using demographic, clinical, and hospital visit data.
+📌 Project Overview
+Hospital readmissions after heart failure are costly and preventable. The goal of this project is to build a predictive model using clinical, demographic, and hospitalization data to identify patients at high risk of being readmitted within 30 or 60 days.
 
-## 📁 Dataset
-- Source: Kaggle (GHW Heart Failure Readmission)
-- Includes age, vitals, lab results, hospital stay, etc.
-- Target: `Readmission_30or60Days` (1 = Yes, 0 = No)
+📁 Dataset
+Source: Hospital Readmission dataset from Kaggle (GHW Project)
 
-## ⚙️ Methods
-- Data Cleaning and Preprocessing
-- SMOTE for class balancing
-- Models: Logistic Regression, Random Forest, XGBoost, SVM
-- Evaluation using F1 Score, ROC AUC, Confusion Matrix
+Target Variable: Readmission_30or60Days (1 = Readmitted, 0 = Not Readmitted)
 
-## 🏆 Best Model
-- **Random Forest**
-  - F1 Score: 0.55
-  - Precision: 0.54
-  - Recall: 0.55
+Features:
 
-## 📊 Insights
-- Top features: Creatinine, Ejection Fraction, Sodium, Gender, Ethnicity
-- Feature importance extracted using XGBoost
+Demographics: Age, Gender, Ethnicity
 
-## 📂 Files
-- `readmission_prediction.py` — Cleaned final script
-- `readmission_prediction.ipynb` — Notebook version
-- `GHW_HeartFailure_Readmission_Combined.csv` — Dataset
-- `heart_failure_readmission_model.pkl` — Final model
-- `presentation/` — PPT slides
-- `visuals/` — All graphs
+Medical History: Prior Admissions, NT_proBNP, Sodium, Creatinine
 
-## 🛠️ Tools
-- Python, Pandas, Scikit-learn, XGBoost, SMOTE, Matplotlib, Seaborn
+Vitals: BP, Heart Rate, Temperature
 
-## 📌 Author
-- Tabashu Thulasi  
-- [LinkedIn](https://www.linkedin.com/in/tabashu-mekkunnil-thulasi-681306218)  
-- [GitHub](https://github.com/TabashuMekkunnilThulasi)
+Hospitalization Details: Length of Stay, Discharge Disposition
+
+🧠 Models Used
+Logistic Regression
+
+Random Forest
+
+XGBoost
+
+Support Vector Machine (SVM)
+
+Best Performing Model: ✅ Random Forest
+F1 Score: 0.55
+Recall: 0.55
+ROC AUC: 0.52
+
+🧪 Techniques Applied
+Data Cleaning and Preprocessing
+
+Handling Missing Values
+
+Feature Encoding and Scaling
+
+SMOTE for Class Imbalance
+
+Hyperparameter Tuning with GridSearchCV
+
+Evaluation using Accuracy, Precision, Recall, F1, ROC AUC
+
+Confusion Matrix Visualization
+
+Feature Importance Analysis (XGBoost)
+
+📊 Exploratory Data Analysis (EDA)
+Readmission class distribution:
+Readmitted: 50.1% | Not Readmitted: 49.9%
+
+Top Predictive Features (from XGBoost):
+
+Ethnicity_White
+
+Creatinine
+
+Gender_Male
+
+BUN
+
+Ejection Fraction
+
+
+📈 Visuals Included
+📌 Readmission Class Distribution Plot
+
+🔥 Correlation Heatmap
+
+📉 ROC Curve Comparison
+
+🧩 Confusion Matrix (Best Model)
+
+📌 Feature Importance (XGBoost)
+
+👩‍💻 Author
+Tabashu Thulasi
+Data Analyst & Software Engineer
+LinkedIn | GitHub
+
