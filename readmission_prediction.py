@@ -1,4 +1,4 @@
-# Heart Failure Readmission Prediction - Final Enhanced Script
+# Heart Failure Readmission Prediction
 
 import warnings
 warnings.filterwarnings("ignore")
@@ -22,7 +22,7 @@ from sklearn.metrics import (
 )
 import joblib
 
-# Step 1: Load & Prepare Data
+# Load & Prepare Data
 data = pd.read_csv("C:/Users/HP/GHW_HeartFailure_Readmission_Combined.csv")
 print("Missing Values:\n", data.isnull().sum())
 
@@ -33,7 +33,7 @@ data.drop(["Readmission_30Days", "Readmission_60Days", "Readmission_30or60Days"]
 data.fillna(data.median(numeric_only=True), inplace=True)
 data = pd.get_dummies(data, columns=["Gender", "Ethnicity", "Discharge_Disposition"], drop_first=True)
 
-# Step 2: EDA
+# EDA
 plt.figure(figsize=(6, 4))
 sns.countplot(x=target)
 plt.title("Readmission Class Distribution")
@@ -54,7 +54,7 @@ plt.title("Correlation Heatmap")
 plt.tight_layout()
 plt.show()
 
-# Step 3: Train-Test Split and SMOTE
+# Train-Test Split and SMOTE
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(data)
 
@@ -70,7 +70,7 @@ X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
 print("\nSMOTE Resampled Class Distribution:")
 print(pd.Series(y_train_resampled).value_counts())
 
-# Step 4: Model Definitions
+# Model Definitions
 models_config = {
     "Logistic Regression": {
         "estimator": LogisticRegression(class_weight="balanced", max_iter=1000),
@@ -90,12 +90,12 @@ models_config = {
     }
 }
 
-# Step 5: Train and Evaluate Models
+# Train and Evaluate Models
 best_models = {}
 model_scores = {}
 
 for model_label, config in models_config.items():
-    print(f"\n🔍 Training {model_label}...")
+    print(f"\nTraining {model_label}...")
     clf = GridSearchCV(config["estimator"], config["params"], cv=5, scoring="f1", n_jobs=-1)
     clf.fit(X_train_resampled, y_train_resampled)
 
@@ -118,9 +118,9 @@ for model_label, config in models_config.items():
     best_models[model_label] = clf
     model_scores[model_label] = f1  # F1 used for model selection
 
-# Step 6: Best Model Selection
+# Best Model Selection
 best_model_name = max(model_scores, key=model_scores.get)
-print(f"\n✅ Best Performing Model Based on F1 Score: {best_model_name}")
+print(f"\n Best Performing Model Based on F1 Score: {best_model_name}")
 final_model = best_models[best_model_name]
 final_preds = final_model.predict(X_test)
 
@@ -135,7 +135,7 @@ plt.title(f"Confusion Matrix - {best_model_name}")
 plt.tight_layout()
 plt.show()
 
-# Step 7: ROC Curve
+# ROC Curve
 plt.figure(figsize=(10, 6))
 for name, model in best_models.items():
     if hasattr(model, "predict_proba"):
@@ -151,7 +151,7 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 
-# Step 8: XGBoost Feature Importance
+# XGBoost Feature Importance
 if "XGBoost" in best_models:
     xgb_model = best_models["XGBoost"].best_estimator_
     importance_df = pd.DataFrame({
@@ -168,6 +168,6 @@ if "XGBoost" in best_models:
     plt.tight_layout()
     plt.show()
 
-# Step 9: Save Model and Scaler
+# Save Model and Scaler
 joblib.dump(final_model, "heart_failure_readmission_model.pkl")
 joblib.dump(scaler, "scaler.pkl")
